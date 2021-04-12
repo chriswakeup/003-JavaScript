@@ -42,54 +42,103 @@ console.log(upperCase);
 // Function 
 function generatePassword() {
   // passwordText.value = password;
+  
   var password = "";
   var passLength = window.prompt("How long is the password ( 8 - 128 ): \n")
-  
-  // Password Length Validation
+  var passwordCriteria = {};
+
+  // Password Length Validations
   if (passLength < 8 || passLength > 128) {
     window.alert("Password is invalid. Please select number range from ( 8 - 128 ): \n");
     return;
+    
+  }
+// If input is not a number. Try Again
+  if (isNaN(passLength)) {
+    window.alert("Please enter a valid value. Hint: It's a number");
+    return;
   }
   
-var LCResponse = window.confirm("Do you accept that this password will have a LOWERCASE?");
-console.log(LCResponse);
-if ( LCResponse == false ) {
-return;
-}
+// Return if there is no selected string type.
+
+ 
+
+  var LCResponse = window.confirm("Do you accept that this password will have a LOWERCASE?");
+  if ( LCResponse == false ) {
+    LCResponse = false;
+  } else {
+    LCResponse = true;
+    passwordCriteria = lowerCase;
+    console.log("Password Criteria" + passwordCriteria);
+  }
   
-var UCResponse = window.confirm("Do you accept that this password will have a UPPERCASE?");    
-if ( UCResponse == false ){
-return;
+  var UCResponse = window.confirm("Do you accept that this password will have a UPPERCASE?");    
+  if ( UCResponse == false ){
+    UCResponse = false;
+  } else {
+    UCResponse = true;
+    upperCasePush = upperCase;
+    passwordCriteria = upperCasePush.concat(passwordCriteria);
+    console.log("Password Criteria" + passwordCriteria);
+  }
+
+  var NUMResponse = window.confirm("Do you accept that this password will have a NUMBERS?");
+  if ( NUMResponse == false ) {
+    NUMResponse = false;
+  } else {
+    NUMResponse = true;
+    numCasePush = numeric;
+    passwordCriteria = numeric.concat(passwordCriteria);
+    console.log("Password Criteria" + passwordCriteria);
+  }
+
+  var SCResponse = window.confirm("Do you accept that this password will have a Special Character?");
+  if ( SCResponse == false ) {
+    SCResponse = false;
+  } else {
+    SCResponse = true;
+    SCPush = specialChar;
+    passwordCriteria = SCPush.concat(passwordCriteria);
+    console.log("Password Criteria" + passwordCriteria);
+
+  }
+
+  if (LCResponse == false && UCResponse == false && SCResponse == false && NUMResponse == false ) {
+    window.alert("Please select a proper string type next time.");
+    return;
+  }
+
+  for ( var i = 0 ; i <= passLength ; i++ ) {
+
+    password += passwordCriteria[Math.floor(Math.random() * passwordCriteria.length)];
+
+  }return(password);
+
 }
 
-var NUMResponse = window.confirm("Do you accept that this password will have a NUMBERS?");
-if ( NUMResponse == false ) {
-  return;
-}
 
 
-var SCResponse = window.confirm("Do you accept that this password will have a Special Character?");
-if ( SCResponse == false ) {
-  return;
-}
-
-
-for ( var i = 0; i <= passLength; i++) {
-  password += upperCase[Math.floor(Math.random() * upperCase.length)]; 
-  i++;
-  password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
-  i++;
-  password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
-  i++;
-  password += numeric[Math.floor(Math.random() * numeric.length)];
-  i++
-  password += numeric[Math.floor(Math.random() * numeric.length)];
-  i++;
-  password += specialChar[Math.floor(Math.random() * specialChar.length)];
-  i++;  
-  console.log(password);
-
-}
-
-return(password); 
-} 
+// if ( LCResponse == true ) {
+//   for ( var i = 0; i >= passLength; i++) {
+//     password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+//     console.log(password);
+//     } return(password);
+//   } else if  (LCResponse == true && UCResponse == false && NUMResponse == false && SCResponse == false) {
+//     for ( var i = 0; i >= passLength; i++) {
+//       password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+//       console.log(password);
+//       } return(password);
+//   } else if  (LCResponse == true && UCResponse == true && NUMResponse == false && SCResponse == false) {
+//     console.log("kasdjflaskjdf")
+    
+//   } else if (LCResponse == true && UCResponse == true && NUMResponse == true && SCResponse == false) { 
+//   console.log("kasdjflaskjdf")
+  
+//   } else {
+    // for ( var i = 0; i >= passLength; i++) {
+    //   var1 = lowerCase.concat(upperCase, numeric, specialChar);
+    //   password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+    //   console.log(password);
+    //   } return(password);    
+//   }
+// } 
